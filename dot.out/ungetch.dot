@@ -1,0 +1,68 @@
+digraph G {
+compound=true
+label="Black edges - dataflow, red edges - control flow"
+"t11" [label="  %t11 = alloca i32, align 4"]
+"_1" [label="  store i32 %c, i32* %t11, align 4"]
+"t12" [label="  %t12 = load i32* @bufp, align 4"]
+"t13" [label="  %t13 = icmp sge i32 %t12, 100"]
+"_2" [label="  br i1 %t13, label %1, label %2"]
+"unk_block_1" -> "t11"[color=red]
+"i32 1" -> "t11"
+"t11" -> "_1"[color=red weight=2]
+"c" -> "_1"
+"t11" -> "_1"
+"_1" -> "t12"[color=red weight=2]
+"bufp" -> "t12"
+"t12" -> "t13"[color=red weight=2]
+"t12" -> "t13"
+"i32 100" -> "t13"
+"t13" -> "_2"[color=red weight=2]
+"t13" -> "_2"
+"_2" -> ""[color=red]
+"_2" -> ""[color=red]
+
+"t14" [label="  %t14 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([30 x i8]* @.str, i32 0, i32 0))"]
+"_3" [label="  br label %3"]
+"unk_block_2" -> "t14"[color=red]
+"i8* getelementptr inbounds ([30 x i8]* @.str, i32 0, i32 0)" -> "t14"
+"printf" -> "t14"
+"t14" -> "_3"[color=red weight=2]
+"_3" -> ""[color=red]
+
+"t15" [label="  %t15 = load i32* %t11, align 4"]
+"t16" [label="  %t16 = trunc i32 %t15 to i8"]
+"t17" [label="  %t17 = load i32* @bufp, align 4"]
+"t18" [label="  %t18 = add nsw i32 %t17, 1"]
+"_4" [label="  store i32 %t18, i32* @bufp, align 4"]
+"t19" [label="  %t19 = sext i32 %t17 to i64"]
+"t20" [label="  %t20 = getelementptr inbounds [100 x i8]* @buf, i32 0, i64 %t19"]
+"_5" [label="  store i8 %t16, i8* %t20, align 1"]
+"_6" [label="  br label %3"]
+"unk_block_3" -> "t15"[color=red]
+"t11" -> "t15"
+"t15" -> "t16"[color=red weight=2]
+"t15" -> "t16"
+"t16" -> "t17"[color=red weight=2]
+"bufp" -> "t17"
+"t17" -> "t18"[color=red weight=2]
+"t17" -> "t18"
+"i32 1" -> "t18"
+"t18" -> "_4"[color=red weight=2]
+"t18" -> "_4"
+"bufp" -> "_4"
+"_4" -> "t19"[color=red weight=2]
+"t17" -> "t19"
+"t19" -> "t20"[color=red weight=2]
+"buf" -> "t20"
+"i32 0" -> "t20"
+"t19" -> "t20"
+"t20" -> "_5"[color=red weight=2]
+"t16" -> "_5"
+"t20" -> "_5"
+"_5" -> "_6"[color=red weight=2]
+"_6" -> ""[color=red]
+
+"_7" [label="  ret void"]
+"unk_block_4" -> "_7"[color=red]
+
+}

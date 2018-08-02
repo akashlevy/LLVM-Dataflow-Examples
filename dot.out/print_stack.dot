@@ -1,0 +1,62 @@
+digraph G {
+compound=true
+label="Black edges - dataflow, red edges - control flow"
+"t145" [label="  %t145 = load i32* @sp, align 4"]
+"t146" [label="  %t146 = icmp sgt i32 %t145, 0"]
+"_1" [label="  br i1 %t146, label %1, label %2"]
+"unk_block_1" -> "t145"[color=red]
+"sp" -> "t145"
+"t145" -> "t146"[color=red weight=2]
+"t145" -> "t146"
+"i32 0" -> "t146"
+"t146" -> "_1"[color=red weight=2]
+"t146" -> "_1"
+"_1" -> ""[color=red]
+"_1" -> ""[color=red]
+
+"t147" [label="  %t147 = load i32* @sp, align 4"]
+"t148" [label="  %t148 = sext i32 %t147 to i64"]
+"t149" [label="  %t149 = getelementptr inbounds [100 x double]* @val, i32 0, i64 %t148"]
+"t150" [label="  %t150 = load double* %t149, align 8"]
+"t151" [label="  %t151 = load i32* @sp, align 4"]
+"t152" [label="  %t152 = sub nsw i32 %t151, 1"]
+"t153" [label="  %t153 = sext i32 %t152 to i64"]
+"t154" [label="  %t154 = getelementptr inbounds [100 x double]* @val, i32 0, i64 %t153"]
+"t155" [label="  %t155 = load double* %t154, align 8"]
+"t156" [label="  %t156 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([7 x i8]* @.str5, i32 0, i32 0), double %t150, double %t155)"]
+"_2" [label="  br label %2"]
+"unk_block_2" -> "t147"[color=red]
+"sp" -> "t147"
+"t147" -> "t148"[color=red weight=2]
+"t147" -> "t148"
+"t148" -> "t149"[color=red weight=2]
+"val" -> "t149"
+"i32 0" -> "t149"
+"t148" -> "t149"
+"t149" -> "t150"[color=red weight=2]
+"t149" -> "t150"
+"t150" -> "t151"[color=red weight=2]
+"sp" -> "t151"
+"t151" -> "t152"[color=red weight=2]
+"t151" -> "t152"
+"i32 1" -> "t152"
+"t152" -> "t153"[color=red weight=2]
+"t152" -> "t153"
+"t153" -> "t154"[color=red weight=2]
+"val" -> "t154"
+"i32 0" -> "t154"
+"t153" -> "t154"
+"t154" -> "t155"[color=red weight=2]
+"t154" -> "t155"
+"t155" -> "t156"[color=red weight=2]
+"i8* getelementptr inbounds ([7 x i8]* @.str5, i32 0, i32 0)" -> "t156"
+"t150" -> "t156"
+"t155" -> "t156"
+"printf" -> "t156"
+"t156" -> "_2"[color=red weight=2]
+"_2" -> ""[color=red]
+
+"_3" [label="  ret void"]
+"unk_block_3" -> "_3"[color=red]
+
+}

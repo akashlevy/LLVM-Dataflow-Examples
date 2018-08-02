@@ -1,0 +1,95 @@
+digraph G {
+compound=true
+label="Black edges - dataflow, red edges - control flow"
+"t1" [label="  %t1 = alloca i8*, align 8"]
+"i" [label="  %i = alloca i32, align 4"]
+"_1" [label="  store i8* %s, i8** %t1, align 8"]
+"_2" [label="  store i32 0, i32* %i, align 4"]
+"_3" [label="  br label %1"]
+"unk_block_1" -> "t1"[color=red]
+"i32 1" -> "t1"
+"t1" -> "i"[color=red weight=2]
+"i32 1" -> "i"
+"i" -> "_1"[color=red weight=2]
+"s" -> "_1"
+"t1" -> "_1"
+"_1" -> "_2"[color=red weight=2]
+"i32 0" -> "_2"
+"i" -> "_2"
+"_2" -> "_3"[color=red weight=2]
+"_3" -> ""[color=red]
+
+"t2" [label="  %t2 = load i32* %i, align 4"]
+"t3" [label="  %t3 = sext i32 %t2 to i64"]
+"t4" [label="  %t4 = load i8** %t1, align 8"]
+"t5" [label="  %t5 = call i64 @strlen(i8* %t4) #5"]
+"t6" [label="  %t6 = icmp ult i64 %t3, %t5"]
+"_4" [label="  br i1 %t6, label %2, label %4"]
+"unk_block_2" -> "t2"[color=red]
+"i" -> "t2"
+"t2" -> "t3"[color=red weight=2]
+"t2" -> "t3"
+"t3" -> "t4"[color=red weight=2]
+"t1" -> "t4"
+"t4" -> "t5"[color=red weight=2]
+"t4" -> "t5"
+"strlen" -> "t5"
+"t5" -> "t6"[color=red weight=2]
+"t3" -> "t6"
+"t5" -> "t6"
+"t6" -> "_4"[color=red weight=2]
+"t6" -> "_4"
+"_4" -> ""[color=red]
+"_4" -> ""[color=red]
+
+"t7" [label="  %t7 = load i32* %i, align 4"]
+"t8" [label="  %t8 = sext i32 %t7 to i64"]
+"t9" [label="  %t9 = load i8** %t1, align 8"]
+"t10" [label="  %t10 = getelementptr inbounds i8* %t9, i64 %t8"]
+"t11" [label="  %t11 = load i8* %t10, align 1"]
+"t12" [label="  %t12 = sext i8 %t11 to i32"]
+"t13" [label="  %t13 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0), i32 %t12)"]
+"_5" [label="  br label %3"]
+"unk_block_3" -> "t7"[color=red]
+"i" -> "t7"
+"t7" -> "t8"[color=red weight=2]
+"t7" -> "t8"
+"t8" -> "t9"[color=red weight=2]
+"t1" -> "t9"
+"t9" -> "t10"[color=red weight=2]
+"t9" -> "t10"
+"t8" -> "t10"
+"t10" -> "t11"[color=red weight=2]
+"t10" -> "t11"
+"t11" -> "t12"[color=red weight=2]
+"t11" -> "t12"
+"t12" -> "t13"[color=red weight=2]
+"i8* getelementptr inbounds ([3 x i8]* @.str, i32 0, i32 0)" -> "t13"
+"t12" -> "t13"
+"printf" -> "t13"
+"t13" -> "_5"[color=red weight=2]
+"_5" -> ""[color=red]
+
+"t14" [label="  %t14 = load i32* %i, align 4"]
+"t15" [label="  %t15 = add nsw i32 %t14, 1"]
+"_6" [label="  store i32 %t15, i32* %i, align 4"]
+"_7" [label="  br label %1"]
+"unk_block_4" -> "t14"[color=red]
+"i" -> "t14"
+"t14" -> "t15"[color=red weight=2]
+"t14" -> "t15"
+"i32 1" -> "t15"
+"t15" -> "_6"[color=red weight=2]
+"t15" -> "_6"
+"i" -> "_6"
+"_6" -> "_7"[color=red weight=2]
+"_7" -> ""[color=red]
+
+"t16" [label="  %t16 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([2 x i8]* @.str1, i32 0, i32 0))"]
+"_8" [label="  ret void"]
+"unk_block_5" -> "t16"[color=red]
+"i8* getelementptr inbounds ([2 x i8]* @.str1, i32 0, i32 0)" -> "t16"
+"printf" -> "t16"
+"t16" -> "_8"[color=red weight=2]
+
+}

@@ -1,0 +1,77 @@
+digraph G {
+compound=true
+label="Black edges - dataflow, red edges - control flow"
+"t22" [label="  %t22 = alloca float, align 4"]
+"t23" [label="  %t23 = alloca float, align 4"]
+"_1" [label="  store float %x, float* %t22, align 4"]
+"_2" [label="  store float %y, float* %t23, align 4"]
+"t24" [label="  %t24 = load float* %t22, align 4"]
+"t25" [label="  %t25 = fpext float %t24 to double"]
+"t26" [label="  %t26 = fmul double %t25, 2.000000e+00"]
+"t27" [label="  %t27 = fptrunc double %t26 to float"]
+"_3" [label="  store float %t27, float* %t22, align 4"]
+"t28" [label="  %t28 = load float* %t23, align 4"]
+"t29" [label="  %t29 = fpext float %t28 to double"]
+"t30" [label="  %t30 = fmul double %t29, 2.000000e+00"]
+"t31" [label="  %t31 = fptrunc double %t30 to float"]
+"_4" [label="  store float %t31, float* %t23, align 4"]
+"t32" [label="  %t32 = load float* %t22, align 4"]
+"t33" [label="  %t33 = fpext float %t32 to double"]
+"t34" [label="  %t34 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([15 x i8]* @.str, i32 0, i32 0), double %t33)"]
+"t35" [label="  %t35 = load float* %t23, align 4"]
+"t36" [label="  %t36 = fpext float %t35 to double"]
+"t37" [label="  %t37 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([16 x i8]* @.str1, i32 0, i32 0), double %t36)"]
+"_5" [label="  ret void"]
+"unk_block_1" -> "t22"[color=red]
+"i32 1" -> "t22"
+"t22" -> "t23"[color=red weight=2]
+"i32 1" -> "t23"
+"t23" -> "_1"[color=red weight=2]
+"x" -> "_1"
+"t22" -> "_1"
+"_1" -> "_2"[color=red weight=2]
+"y" -> "_2"
+"t23" -> "_2"
+"_2" -> "t24"[color=red weight=2]
+"t22" -> "t24"
+"t24" -> "t25"[color=red weight=2]
+"t24" -> "t25"
+"t25" -> "t26"[color=red weight=2]
+"t25" -> "t26"
+"double 2.000000e+00" -> "t26"
+"t26" -> "t27"[color=red weight=2]
+"t26" -> "t27"
+"t27" -> "_3"[color=red weight=2]
+"t27" -> "_3"
+"t22" -> "_3"
+"_3" -> "t28"[color=red weight=2]
+"t23" -> "t28"
+"t28" -> "t29"[color=red weight=2]
+"t28" -> "t29"
+"t29" -> "t30"[color=red weight=2]
+"t29" -> "t30"
+"double 2.000000e+00" -> "t30"
+"t30" -> "t31"[color=red weight=2]
+"t30" -> "t31"
+"t31" -> "_4"[color=red weight=2]
+"t31" -> "_4"
+"t23" -> "_4"
+"_4" -> "t32"[color=red weight=2]
+"t22" -> "t32"
+"t32" -> "t33"[color=red weight=2]
+"t32" -> "t33"
+"t33" -> "t34"[color=red weight=2]
+"i8* getelementptr inbounds ([15 x i8]* @.str, i32 0, i32 0)" -> "t34"
+"t33" -> "t34"
+"printf" -> "t34"
+"t34" -> "t35"[color=red weight=2]
+"t23" -> "t35"
+"t35" -> "t36"[color=red weight=2]
+"t35" -> "t36"
+"t36" -> "t37"[color=red weight=2]
+"i8* getelementptr inbounds ([16 x i8]* @.str1, i32 0, i32 0)" -> "t37"
+"t36" -> "t37"
+"printf" -> "t37"
+"t37" -> "_5"[color=red weight=2]
+
+}

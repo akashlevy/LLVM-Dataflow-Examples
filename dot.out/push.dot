@@ -1,0 +1,64 @@
+digraph G {
+compound=true
+label="Black edges - dataflow, red edges - control flow"
+"t5" [label="  %t5 = alloca double, align 8"]
+"_1" [label="  store double %val, double* %t5, align 8"]
+"t6" [label="  %t6 = load i32* @stkh, align 4"]
+"t7" [label="  %t7 = icmp eq i32 %t6, 100"]
+"_2" [label="  br i1 %t7, label %1, label %2"]
+"unk_block_1" -> "t5"[color=red]
+"i32 1" -> "t5"
+"t5" -> "_1"[color=red weight=2]
+"val" -> "_1"
+"t5" -> "_1"
+"_1" -> "t6"[color=red weight=2]
+"stkh" -> "t6"
+"t6" -> "t7"[color=red weight=2]
+"t6" -> "t7"
+"i32 100" -> "t7"
+"t7" -> "_2"[color=red weight=2]
+"t7" -> "_2"
+"_2" -> ""[color=red]
+"_2" -> ""[color=red]
+
+"_3" [label="  call void @error(i8* getelementptr inbounds ([16 x i8]* @.str1, i32 0, i32 0))"]
+"_4" [label="  br label %2"]
+"unk_block_2" -> "_3"[color=red]
+"i8* getelementptr inbounds ([16 x i8]* @.str1, i32 0, i32 0)" -> "_3"
+"error" -> "_3"
+"_3" -> "_4"[color=red weight=2]
+"_4" -> ""[color=red]
+
+"t8" [label="  %t8 = load double* %t5, align 8"]
+"t9" [label="  %t9 = load i32* @stkh, align 4"]
+"t10" [label="  %t10 = sext i32 %t9 to i64"]
+"t11" [label="  %t11 = getelementptr inbounds [100 x double]* @stack, i32 0, i64 %t10"]
+"_5" [label="  store double %t8, double* %t11, align 8"]
+"t12" [label="  %t12 = load i32* @stkh, align 4"]
+"t13" [label="  %t13 = add nsw i32 %t12, 1"]
+"_6" [label="  store i32 %t13, i32* @stkh, align 4"]
+"_7" [label="  ret void"]
+"unk_block_3" -> "t8"[color=red]
+"t5" -> "t8"
+"t8" -> "t9"[color=red weight=2]
+"stkh" -> "t9"
+"t9" -> "t10"[color=red weight=2]
+"t9" -> "t10"
+"t10" -> "t11"[color=red weight=2]
+"stack" -> "t11"
+"i32 0" -> "t11"
+"t10" -> "t11"
+"t11" -> "_5"[color=red weight=2]
+"t8" -> "_5"
+"t11" -> "_5"
+"_5" -> "t12"[color=red weight=2]
+"stkh" -> "t12"
+"t12" -> "t13"[color=red weight=2]
+"t12" -> "t13"
+"i32 1" -> "t13"
+"t13" -> "_6"[color=red weight=2]
+"t13" -> "_6"
+"stkh" -> "_6"
+"_6" -> "_7"[color=red weight=2]
+
+}

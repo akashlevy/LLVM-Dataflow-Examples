@@ -1,0 +1,51 @@
+digraph G {
+compound=true
+label="Black edges - dataflow, red edges - control flow"
+"t14" [label="  %t14 = load i32* @stkh, align 4"]
+"t15" [label="  %t15 = icmp eq i32 %t14, 0"]
+"_1" [label="  br i1 %t15, label %1, label %2"]
+"unk_block_1" -> "t14"[color=red]
+"stkh" -> "t14"
+"t14" -> "t15"[color=red weight=2]
+"t14" -> "t15"
+"i32 0" -> "t15"
+"t15" -> "_1"[color=red weight=2]
+"t15" -> "_1"
+"_1" -> ""[color=red]
+"_1" -> ""[color=red]
+
+"_2" [label="  call void @error(i8* getelementptr inbounds ([13 x i8]* @.str2, i32 0, i32 0))"]
+"_3" [label="  br label %2"]
+"unk_block_2" -> "_2"[color=red]
+"i8* getelementptr inbounds ([13 x i8]* @.str2, i32 0, i32 0)" -> "_2"
+"error" -> "_2"
+"_2" -> "_3"[color=red weight=2]
+"_3" -> ""[color=red]
+
+"t16" [label="  %t16 = load i32* @stkh, align 4"]
+"t17" [label="  %t17 = add nsw i32 %t16, -1"]
+"_4" [label="  store i32 %t17, i32* @stkh, align 4"]
+"t18" [label="  %t18 = sext i32 %t17 to i64"]
+"t19" [label="  %t19 = getelementptr inbounds [100 x double]* @stack, i32 0, i64 %t18"]
+"t20" [label="  %t20 = load double* %t19, align 8"]
+"_5" [label="  ret double %t20"]
+"unk_block_3" -> "t16"[color=red]
+"stkh" -> "t16"
+"t16" -> "t17"[color=red weight=2]
+"t16" -> "t17"
+"i32 -1" -> "t17"
+"t17" -> "_4"[color=red weight=2]
+"t17" -> "_4"
+"stkh" -> "_4"
+"_4" -> "t18"[color=red weight=2]
+"t17" -> "t18"
+"t18" -> "t19"[color=red weight=2]
+"stack" -> "t19"
+"i32 0" -> "t19"
+"t18" -> "t19"
+"t19" -> "t20"[color=red weight=2]
+"t19" -> "t20"
+"t20" -> "_5"[color=red weight=2]
+"t20" -> "_5"
+
+}

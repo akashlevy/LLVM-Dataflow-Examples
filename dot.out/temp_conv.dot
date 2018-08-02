@@ -1,0 +1,40 @@
+digraph G {
+compound=true
+label="Black edges - dataflow, red edges - control flow"
+"t10" [label="  %t10 = alloca i32, align 4"]
+"answer" [label="  %answer = alloca i32, align 4"]
+"_1" [label="  store i32 %c, i32* %t10, align 4"]
+"t11" [label="  %t11 = load i32* %t10, align 4"]
+"t12" [label="  %t12 = sub nsw i32 %t11, 32"]
+"t13" [label="  %t13 = mul nsw i32 5, %t12"]
+"t14" [label="  %t14 = sdiv i32 %t13, 9"]
+"_2" [label="  store i32 %t14, i32* %answer, align 4"]
+"t15" [label="  %t15 = load i32* %answer, align 4"]
+"_3" [label="  ret i32 %t15"]
+"unk_block_1" -> "t10"[color=red]
+"i32 1" -> "t10"
+"t10" -> "answer"[color=red weight=2]
+"i32 1" -> "answer"
+"answer" -> "_1"[color=red weight=2]
+"c" -> "_1"
+"t10" -> "_1"
+"_1" -> "t11"[color=red weight=2]
+"t10" -> "t11"
+"t11" -> "t12"[color=red weight=2]
+"t11" -> "t12"
+"i32 32" -> "t12"
+"t12" -> "t13"[color=red weight=2]
+"i32 5" -> "t13"
+"t12" -> "t13"
+"t13" -> "t14"[color=red weight=2]
+"t13" -> "t14"
+"i32 9" -> "t14"
+"t14" -> "_2"[color=red weight=2]
+"t14" -> "_2"
+"answer" -> "_2"
+"_2" -> "t15"[color=red weight=2]
+"answer" -> "t15"
+"t15" -> "_3"[color=red weight=2]
+"t15" -> "_3"
+
+}

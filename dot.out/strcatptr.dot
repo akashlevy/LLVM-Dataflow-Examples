@@ -1,0 +1,67 @@
+digraph G {
+compound=true
+label="Black edges - dataflow, red edges - control flow"
+"t49" [label="  %t49 = alloca i8*, align 8"]
+"t50" [label="  %t50 = alloca i8*, align 8"]
+"_1" [label="  store i8* %s, i8** %t49, align 8"]
+"_2" [label="  store i8* %t, i8** %t50, align 8"]
+"_3" [label="  br label %1"]
+"unk_block_1" -> "t49"[color=red]
+"i32 1" -> "t49"
+"t49" -> "t50"[color=red weight=2]
+"i32 1" -> "t50"
+"t50" -> "_1"[color=red weight=2]
+"s" -> "_1"
+"t49" -> "_1"
+"_1" -> "_2"[color=red weight=2]
+"t" -> "_2"
+"t50" -> "_2"
+"_2" -> "_3"[color=red weight=2]
+"_3" -> ""[color=red]
+
+"t51" [label="  %t51 = load i8** %t49, align 8"]
+"t52" [label="  %t52 = load i8* %t51, align 1"]
+"t53" [label="  %t53 = icmp ne i8 %t52, 0"]
+"_4" [label="  br i1 %t53, label %2, label %3"]
+"unk_block_2" -> "t51"[color=red]
+"t49" -> "t51"
+"t51" -> "t52"[color=red weight=2]
+"t51" -> "t52"
+"t52" -> "t53"[color=red weight=2]
+"t52" -> "t53"
+"i8 0" -> "t53"
+"t53" -> "_4"[color=red weight=2]
+"t53" -> "_4"
+"_4" -> ""[color=red]
+"_4" -> ""[color=red]
+
+"t54" [label="  %t54 = load i8** %t49, align 8"]
+"t55" [label="  %t55 = getelementptr inbounds i8* %t54, i32 1"]
+"_5" [label="  store i8* %t55, i8** %t49, align 8"]
+"_6" [label="  br label %1"]
+"unk_block_3" -> "t54"[color=red]
+"t49" -> "t54"
+"t54" -> "t55"[color=red weight=2]
+"t54" -> "t55"
+"i32 1" -> "t55"
+"t55" -> "_5"[color=red weight=2]
+"t55" -> "_5"
+"t49" -> "_5"
+"_5" -> "_6"[color=red weight=2]
+"_6" -> ""[color=red]
+
+"t56" [label="  %t56 = load i8** %t49, align 8"]
+"t57" [label="  %t57 = load i8** %t50, align 8"]
+"_7" [label="  call void @strcopy(i8* %t56, i8* %t57)"]
+"_8" [label="  ret void"]
+"unk_block_4" -> "t56"[color=red]
+"t49" -> "t56"
+"t56" -> "t57"[color=red weight=2]
+"t50" -> "t57"
+"t57" -> "_7"[color=red weight=2]
+"t56" -> "_7"
+"t57" -> "_7"
+"strcopy" -> "_7"
+"_7" -> "_8"[color=red weight=2]
+
+}

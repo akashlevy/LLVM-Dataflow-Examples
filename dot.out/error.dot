@@ -1,0 +1,33 @@
+digraph G {
+compound=true
+label="Black edges - dataflow, red edges - control flow"
+"t1" [label="  %t1 = alloca i8*, align 8"]
+"_1" [label="  store i8* %err, i8** %t1, align 8"]
+"t2" [label="  %t2 = load %struct._IO_FILE** @stderr, align 8"]
+"t3" [label="  %t3 = load i8** %t1, align 8"]
+"t4" [label="  %t4 = call i32 (%struct._IO_FILE*, i8*, ...)* @fprintf(%struct._IO_FILE* %t2, i8* getelementptr inbounds ([11 x i8]* @.str, i32 0, i32 0), i8* %t3)"]
+"_2" [label="  call void @exit(i32 1) #4"]
+"_3" [label="  unreachable"]
+"unk_block_1" -> "t1"[color=red]
+"i32 1" -> "t1"
+"t1" -> "_1"[color=red weight=2]
+"err" -> "_1"
+"t1" -> "_1"
+"_1" -> "t2"[color=red weight=2]
+"stderr" -> "t2"
+"t2" -> "t3"[color=red weight=2]
+"t1" -> "t3"
+"t3" -> "t4"[color=red weight=2]
+"t2" -> "t4"
+"i8* getelementptr inbounds ([11 x i8]* @.str, i32 0, i32 0)" -> "t4"
+"t3" -> "t4"
+"fprintf" -> "t4"
+"t4" -> "_2"[color=red weight=2]
+"i32 1" -> "_2"
+"exit" -> "_2"
+"_2" -> "_3"[color=red weight=2]
+
+"_4" [label="  ret void"]
+"unk_block_2" -> "_4"[color=red]
+
+}

@@ -1,0 +1,197 @@
+digraph G {
+compound=true
+label="Black edges - dataflow, red edges - control flow"
+"t50" [label="  %t50 = alloca i32, align 4"]
+"t51" [label="  %t51 = alloca i8*, align 8"]
+"i" [label="  %i = alloca i32, align 4"]
+"sign" [label="  %sign = alloca i32, align 4"]
+"_1" [label="  store i32 %n, i32* %t50, align 4"]
+"_2" [label="  store i8* %s, i8** %t51, align 8"]
+"t52" [label="  %t52 = load i32* %t50, align 4"]
+"_3" [label="  store i32 %t52, i32* %sign, align 4"]
+"t53" [label="  %t53 = icmp slt i32 %t52, 0"]
+"_4" [label="  br i1 %t53, label %1, label %2"]
+"unk_block_1" -> "t50"[color=red]
+"i32 1" -> "t50"
+"t50" -> "t51"[color=red weight=2]
+"i32 1" -> "t51"
+"t51" -> "i"[color=red weight=2]
+"i32 1" -> "i"
+"i" -> "sign"[color=red weight=2]
+"i32 1" -> "sign"
+"sign" -> "_1"[color=red weight=2]
+"n" -> "_1"
+"t50" -> "_1"
+"_1" -> "_2"[color=red weight=2]
+"s" -> "_2"
+"t51" -> "_2"
+"_2" -> "t52"[color=red weight=2]
+"t50" -> "t52"
+"t52" -> "_3"[color=red weight=2]
+"t52" -> "_3"
+"sign" -> "_3"
+"_3" -> "t53"[color=red weight=2]
+"t52" -> "t53"
+"i32 0" -> "t53"
+"t53" -> "_4"[color=red weight=2]
+"t53" -> "_4"
+"_4" -> ""[color=red]
+"_4" -> ""[color=red]
+
+"t54" [label="  %t54 = load i32* %t50, align 4"]
+"t55" [label="  %t55 = sub nsw i32 0, %t54"]
+"_5" [label="  store i32 %t55, i32* %t50, align 4"]
+"_6" [label="  br label %2"]
+"unk_block_2" -> "t54"[color=red]
+"t50" -> "t54"
+"t54" -> "t55"[color=red weight=2]
+"i32 0" -> "t55"
+"t54" -> "t55"
+"t55" -> "_5"[color=red weight=2]
+"t55" -> "_5"
+"t50" -> "_5"
+"_5" -> "_6"[color=red weight=2]
+"_6" -> ""[color=red]
+
+"_7" [label="  store i32 0, i32* %i, align 4"]
+"_8" [label="  br label %3"]
+"unk_block_3" -> "_7"[color=red]
+"i32 0" -> "_7"
+"i" -> "_7"
+"_7" -> "_8"[color=red weight=2]
+"_8" -> ""[color=red]
+
+"t56" [label="  %t56 = load i32* %t50, align 4"]
+"t57" [label="  %t57 = srem i32 %t56, 10"]
+"t58" [label="  %t58 = add nsw i32 %t57, 48"]
+"t59" [label="  %t59 = trunc i32 %t58 to i8"]
+"t60" [label="  %t60 = load i32* %i, align 4"]
+"t61" [label="  %t61 = add nsw i32 %t60, 1"]
+"_9" [label="  store i32 %t61, i32* %i, align 4"]
+"t62" [label="  %t62 = sext i32 %t60 to i64"]
+"t63" [label="  %t63 = load i8** %t51, align 8"]
+"t64" [label="  %t64 = getelementptr inbounds i8* %t63, i64 %t62"]
+"_10" [label="  store i8 %t59, i8* %t64, align 1"]
+"_11" [label="  br label %4"]
+"unk_block_4" -> "t56"[color=red]
+"t50" -> "t56"
+"t56" -> "t57"[color=red weight=2]
+"t56" -> "t57"
+"i32 10" -> "t57"
+"t57" -> "t58"[color=red weight=2]
+"t57" -> "t58"
+"i32 48" -> "t58"
+"t58" -> "t59"[color=red weight=2]
+"t58" -> "t59"
+"t59" -> "t60"[color=red weight=2]
+"i" -> "t60"
+"t60" -> "t61"[color=red weight=2]
+"t60" -> "t61"
+"i32 1" -> "t61"
+"t61" -> "_9"[color=red weight=2]
+"t61" -> "_9"
+"i" -> "_9"
+"_9" -> "t62"[color=red weight=2]
+"t60" -> "t62"
+"t62" -> "t63"[color=red weight=2]
+"t51" -> "t63"
+"t63" -> "t64"[color=red weight=2]
+"t63" -> "t64"
+"t62" -> "t64"
+"t64" -> "_10"[color=red weight=2]
+"t59" -> "_10"
+"t64" -> "_10"
+"_10" -> "_11"[color=red weight=2]
+"_11" -> ""[color=red]
+
+"t65" [label="  %t65 = load i32* %t50, align 4"]
+"t66" [label="  %t66 = sdiv i32 %t65, 10"]
+"_12" [label="  store i32 %t66, i32* %t50, align 4"]
+"t67" [label="  %t67 = icmp sgt i32 %t66, 0"]
+"_13" [label="  br i1 %t67, label %3, label %5"]
+"unk_block_5" -> "t65"[color=red]
+"t50" -> "t65"
+"t65" -> "t66"[color=red weight=2]
+"t65" -> "t66"
+"i32 10" -> "t66"
+"t66" -> "_12"[color=red weight=2]
+"t66" -> "_12"
+"t50" -> "_12"
+"_12" -> "t67"[color=red weight=2]
+"t66" -> "t67"
+"i32 0" -> "t67"
+"t67" -> "_13"[color=red weight=2]
+"t67" -> "_13"
+"_13" -> ""[color=red]
+"_13" -> ""[color=red]
+
+"t68" [label="  %t68 = load i32* %sign, align 4"]
+"t69" [label="  %t69 = icmp slt i32 %t68, 0"]
+"_14" [label="  br i1 %t69, label %6, label %7"]
+"unk_block_6" -> "t68"[color=red]
+"sign" -> "t68"
+"t68" -> "t69"[color=red weight=2]
+"t68" -> "t69"
+"i32 0" -> "t69"
+"t69" -> "_14"[color=red weight=2]
+"t69" -> "_14"
+"_14" -> ""[color=red]
+"_14" -> ""[color=red]
+
+"t70" [label="  %t70 = load i32* %i, align 4"]
+"t71" [label="  %t71 = add nsw i32 %t70, 1"]
+"_15" [label="  store i32 %t71, i32* %i, align 4"]
+"t72" [label="  %t72 = sext i32 %t70 to i64"]
+"t73" [label="  %t73 = load i8** %t51, align 8"]
+"t74" [label="  %t74 = getelementptr inbounds i8* %t73, i64 %t72"]
+"_16" [label="  store i8 45, i8* %t74, align 1"]
+"_17" [label="  br label %7"]
+"unk_block_7" -> "t70"[color=red]
+"i" -> "t70"
+"t70" -> "t71"[color=red weight=2]
+"t70" -> "t71"
+"i32 1" -> "t71"
+"t71" -> "_15"[color=red weight=2]
+"t71" -> "_15"
+"i" -> "_15"
+"_15" -> "t72"[color=red weight=2]
+"t70" -> "t72"
+"t72" -> "t73"[color=red weight=2]
+"t51" -> "t73"
+"t73" -> "t74"[color=red weight=2]
+"t73" -> "t74"
+"t72" -> "t74"
+"t74" -> "_16"[color=red weight=2]
+"i8 45" -> "_16"
+"t74" -> "_16"
+"_16" -> "_17"[color=red weight=2]
+"_17" -> ""[color=red]
+
+"t75" [label="  %t75 = load i32* %i, align 4"]
+"t76" [label="  %t76 = sext i32 %t75 to i64"]
+"t77" [label="  %t77 = load i8** %t51, align 8"]
+"t78" [label="  %t78 = getelementptr inbounds i8* %t77, i64 %t76"]
+"_18" [label="  store i8 0, i8* %t78, align 1"]
+"t79" [label="  %t79 = load i8** %t51, align 8"]
+"_19" [label="  call void @reverse_array(i8* %t79)"]
+"_20" [label="  ret void"]
+"unk_block_8" -> "t75"[color=red]
+"i" -> "t75"
+"t75" -> "t76"[color=red weight=2]
+"t75" -> "t76"
+"t76" -> "t77"[color=red weight=2]
+"t51" -> "t77"
+"t77" -> "t78"[color=red weight=2]
+"t77" -> "t78"
+"t76" -> "t78"
+"t78" -> "_18"[color=red weight=2]
+"i8 0" -> "_18"
+"t78" -> "_18"
+"_18" -> "t79"[color=red weight=2]
+"t51" -> "t79"
+"t79" -> "_19"[color=red weight=2]
+"t79" -> "_19"
+"reverse_array" -> "_19"
+"_19" -> "_20"[color=red weight=2]
+
+}

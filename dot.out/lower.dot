@@ -1,0 +1,77 @@
+digraph G {
+compound=true
+label="Black edges - dataflow, red edges - control flow"
+"t30" [label="  %t30 = alloca i32, align 4"]
+"t31" [label="  %t31 = alloca i32, align 4"]
+"_1" [label="  store i32 %c, i32* %t31, align 4"]
+"t32" [label="  %t32 = load i32* %t31, align 4"]
+"t33" [label="  %t33 = icmp sge i32 %t32, 65"]
+"_2" [label="  br i1 %t33, label %1, label %3"]
+"unk_block_1" -> "t30"[color=red]
+"i32 1" -> "t30"
+"t30" -> "t31"[color=red weight=2]
+"i32 1" -> "t31"
+"t31" -> "_1"[color=red weight=2]
+"c" -> "_1"
+"t31" -> "_1"
+"_1" -> "t32"[color=red weight=2]
+"t31" -> "t32"
+"t32" -> "t33"[color=red weight=2]
+"t32" -> "t33"
+"i32 65" -> "t33"
+"t33" -> "_2"[color=red weight=2]
+"t33" -> "_2"
+"_2" -> ""[color=red]
+"_2" -> ""[color=red]
+
+"t34" [label="  %t34 = load i32* %t31, align 4"]
+"t35" [label="  %t35 = icmp sle i32 %t34, 90"]
+"_3" [label="  br i1 %t35, label %2, label %3"]
+"unk_block_2" -> "t34"[color=red]
+"t31" -> "t34"
+"t34" -> "t35"[color=red weight=2]
+"t34" -> "t35"
+"i32 90" -> "t35"
+"t35" -> "_3"[color=red weight=2]
+"t35" -> "_3"
+"_3" -> ""[color=red]
+"_3" -> ""[color=red]
+
+"t36" [label="  %t36 = load i32* %t31, align 4"]
+"t37" [label="  %t37 = add nsw i32 %t36, 97"]
+"t38" [label="  %t38 = sub nsw i32 %t37, 65"]
+"_4" [label="  store i32 %t38, i32* %t30"]
+"_5" [label="  br label %4"]
+"unk_block_3" -> "t36"[color=red]
+"t31" -> "t36"
+"t36" -> "t37"[color=red weight=2]
+"t36" -> "t37"
+"i32 97" -> "t37"
+"t37" -> "t38"[color=red weight=2]
+"t37" -> "t38"
+"i32 65" -> "t38"
+"t38" -> "_4"[color=red weight=2]
+"t38" -> "_4"
+"t30" -> "_4"
+"_4" -> "_5"[color=red weight=2]
+"_5" -> ""[color=red]
+
+"t39" [label="  %t39 = load i32* %t31, align 4"]
+"_6" [label="  store i32 %t39, i32* %t30"]
+"_7" [label="  br label %4"]
+"unk_block_4" -> "t39"[color=red]
+"t31" -> "t39"
+"t39" -> "_6"[color=red weight=2]
+"t39" -> "_6"
+"t30" -> "_6"
+"_6" -> "_7"[color=red weight=2]
+"_7" -> ""[color=red]
+
+"t40" [label="  %t40 = load i32* %t30"]
+"_8" [label="  ret i32 %t40"]
+"unk_block_5" -> "t40"[color=red]
+"t30" -> "t40"
+"t40" -> "_8"[color=red weight=2]
+"t40" -> "_8"
+
+}

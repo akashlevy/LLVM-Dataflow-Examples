@@ -1,0 +1,40 @@
+digraph G {
+compound=true
+label="Black edges - dataflow, red edges - control flow"
+"temp" [label="  %temp = alloca i32, align 4"]
+"t139" [label="  %t139 = call double @pop()"]
+"t140" [label="  %t140 = fptosi double %t139 to i32"]
+"_1" [label="  store i32 %t140, i32* %temp, align 4"]
+"t141" [label="  %t141 = load i32* %temp, align 4"]
+"t142" [label="  %t142 = sitofp i32 %t141 to double"]
+"_2" [label="  call void @push(double %t142)"]
+"t143" [label="  %t143 = load i32* %temp, align 4"]
+"t144" [label="  %t144 = sitofp i32 %t143 to double"]
+"_3" [label="  call void @push(double %t144)"]
+"_4" [label="  ret void"]
+"unk_block_1" -> "temp"[color=red]
+"i32 1" -> "temp"
+"temp" -> "t139"[color=red weight=2]
+"pop" -> "t139"
+"t139" -> "t140"[color=red weight=2]
+"t139" -> "t140"
+"t140" -> "_1"[color=red weight=2]
+"t140" -> "_1"
+"temp" -> "_1"
+"_1" -> "t141"[color=red weight=2]
+"temp" -> "t141"
+"t141" -> "t142"[color=red weight=2]
+"t141" -> "t142"
+"t142" -> "_2"[color=red weight=2]
+"t142" -> "_2"
+"push" -> "_2"
+"_2" -> "t143"[color=red weight=2]
+"temp" -> "t143"
+"t143" -> "t144"[color=red weight=2]
+"t143" -> "t144"
+"t144" -> "_3"[color=red weight=2]
+"t144" -> "_3"
+"push" -> "_3"
+"_3" -> "_4"[color=red weight=2]
+
+}

@@ -1,0 +1,57 @@
+digraph G {
+compound=true
+label="Black edges - dataflow, red edges - control flow"
+"t83" [label="  %t83 = alloca i8*, align 8"]
+"i" [label="  %i = alloca i32, align 4"]
+"j" [label="  %j = alloca i32, align 4"]
+"_1" [label="  store i8* %s, i8** %t83, align 8"]
+"_2" [label="  store i32 0, i32* %i, align 4"]
+"t84" [label="  %t84 = load i8** %t83, align 8"]
+"t85" [label="  %t85 = call i64 @strlen(i8* %t84) #4"]
+"t86" [label="  %t86 = sub i64 %t85, 1"]
+"t87" [label="  %t87 = trunc i64 %t86 to i32"]
+"_3" [label="  store i32 %t87, i32* %j, align 4"]
+"t88" [label="  %t88 = load i8** %t83, align 8"]
+"t89" [label="  %t89 = load i32* %i, align 4"]
+"t90" [label="  %t90 = load i32* %j, align 4"]
+"t91" [label="  %t91 = call i32 @rec_rev(i8* %t88, i32 %t89, i32 %t90)"]
+"_4" [label="  ret void"]
+"unk_block_1" -> "t83"[color=red]
+"i32 1" -> "t83"
+"t83" -> "i"[color=red weight=2]
+"i32 1" -> "i"
+"i" -> "j"[color=red weight=2]
+"i32 1" -> "j"
+"j" -> "_1"[color=red weight=2]
+"s" -> "_1"
+"t83" -> "_1"
+"_1" -> "_2"[color=red weight=2]
+"i32 0" -> "_2"
+"i" -> "_2"
+"_2" -> "t84"[color=red weight=2]
+"t83" -> "t84"
+"t84" -> "t85"[color=red weight=2]
+"t84" -> "t85"
+"strlen" -> "t85"
+"t85" -> "t86"[color=red weight=2]
+"t85" -> "t86"
+"i64 1" -> "t86"
+"t86" -> "t87"[color=red weight=2]
+"t86" -> "t87"
+"t87" -> "_3"[color=red weight=2]
+"t87" -> "_3"
+"j" -> "_3"
+"_3" -> "t88"[color=red weight=2]
+"t83" -> "t88"
+"t88" -> "t89"[color=red weight=2]
+"i" -> "t89"
+"t89" -> "t90"[color=red weight=2]
+"j" -> "t90"
+"t90" -> "t91"[color=red weight=2]
+"t88" -> "t91"
+"t89" -> "t91"
+"t90" -> "t91"
+"rec_rev" -> "t91"
+"t91" -> "_4"[color=red weight=2]
+
+}

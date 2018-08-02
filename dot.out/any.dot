@@ -1,0 +1,213 @@
+digraph G {
+compound=true
+label="Black edges - dataflow, red edges - control flow"
+"t1" [label="  %t1 = alloca i32, align 4"]
+"t2" [label="  %t2 = alloca i8*, align 8"]
+"t3" [label="  %t3 = alloca i8*, align 8"]
+"i" [label="  %i = alloca i32, align 4"]
+"j" [label="  %j = alloca i32, align 4"]
+"_1" [label="  store i8* %test, i8** %t2, align 8"]
+"_2" [label="  store i8* %data, i8** %t3, align 8"]
+"_3" [label="  store i32 0, i32* %i, align 4"]
+"_4" [label="  br label %1"]
+"unk_block_1" -> "t1"[color=red]
+"i32 1" -> "t1"
+"t1" -> "t2"[color=red weight=2]
+"i32 1" -> "t2"
+"t2" -> "t3"[color=red weight=2]
+"i32 1" -> "t3"
+"t3" -> "i"[color=red weight=2]
+"i32 1" -> "i"
+"i" -> "j"[color=red weight=2]
+"i32 1" -> "j"
+"j" -> "_1"[color=red weight=2]
+"test" -> "_1"
+"t2" -> "_1"
+"_1" -> "_2"[color=red weight=2]
+"data" -> "_2"
+"t3" -> "_2"
+"_2" -> "_3"[color=red weight=2]
+"i32 0" -> "_3"
+"i" -> "_3"
+"_3" -> "_4"[color=red weight=2]
+"_4" -> ""[color=red]
+
+"t4" [label="  %t4 = load i32* %i, align 4"]
+"t5" [label="  %t5 = sext i32 %t4 to i64"]
+"t6" [label="  %t6 = load i8** %t3, align 8"]
+"t7" [label="  %t7 = getelementptr inbounds i8* %t6, i64 %t5"]
+"t8" [label="  %t8 = load i8* %t7, align 1"]
+"t9" [label="  %t9 = sext i8 %t8 to i32"]
+"t10" [label="  %t10 = icmp ne i32 %t9, 0"]
+"_5" [label="  br i1 %t10, label %2, label %10"]
+"unk_block_2" -> "t4"[color=red]
+"i" -> "t4"
+"t4" -> "t5"[color=red weight=2]
+"t4" -> "t5"
+"t5" -> "t6"[color=red weight=2]
+"t3" -> "t6"
+"t6" -> "t7"[color=red weight=2]
+"t6" -> "t7"
+"t5" -> "t7"
+"t7" -> "t8"[color=red weight=2]
+"t7" -> "t8"
+"t8" -> "t9"[color=red weight=2]
+"t8" -> "t9"
+"t9" -> "t10"[color=red weight=2]
+"t9" -> "t10"
+"i32 0" -> "t10"
+"t10" -> "_5"[color=red weight=2]
+"t10" -> "_5"
+"_5" -> ""[color=red]
+"_5" -> ""[color=red]
+
+"_6" [label="  store i32 0, i32* %j, align 4"]
+"_7" [label="  br label %3"]
+"unk_block_3" -> "_6"[color=red]
+"i32 0" -> "_6"
+"j" -> "_6"
+"_6" -> "_7"[color=red weight=2]
+"_7" -> ""[color=red]
+
+"t11" [label="  %t11 = load i32* %j, align 4"]
+"t12" [label="  %t12 = sext i32 %t11 to i64"]
+"t13" [label="  %t13 = load i8** %t2, align 8"]
+"t14" [label="  %t14 = getelementptr inbounds i8* %t13, i64 %t12"]
+"t15" [label="  %t15 = load i8* %t14, align 1"]
+"t16" [label="  %t16 = sext i8 %t15 to i32"]
+"t17" [label="  %t17 = icmp ne i32 %t16, 0"]
+"_8" [label="  br i1 %t17, label %4, label %8"]
+"unk_block_4" -> "t11"[color=red]
+"j" -> "t11"
+"t11" -> "t12"[color=red weight=2]
+"t11" -> "t12"
+"t12" -> "t13"[color=red weight=2]
+"t2" -> "t13"
+"t13" -> "t14"[color=red weight=2]
+"t13" -> "t14"
+"t12" -> "t14"
+"t14" -> "t15"[color=red weight=2]
+"t14" -> "t15"
+"t15" -> "t16"[color=red weight=2]
+"t15" -> "t16"
+"t16" -> "t17"[color=red weight=2]
+"t16" -> "t17"
+"i32 0" -> "t17"
+"t17" -> "_8"[color=red weight=2]
+"t17" -> "_8"
+"_8" -> ""[color=red]
+"_8" -> ""[color=red]
+
+"t18" [label="  %t18 = load i32* %j, align 4"]
+"t19" [label="  %t19 = sext i32 %t18 to i64"]
+"t20" [label="  %t20 = load i8** %t2, align 8"]
+"t21" [label="  %t21 = getelementptr inbounds i8* %t20, i64 %t19"]
+"t22" [label="  %t22 = load i8* %t21, align 1"]
+"t23" [label="  %t23 = sext i8 %t22 to i32"]
+"t24" [label="  %t24 = load i32* %i, align 4"]
+"t25" [label="  %t25 = sext i32 %t24 to i64"]
+"t26" [label="  %t26 = load i8** %t3, align 8"]
+"t27" [label="  %t27 = getelementptr inbounds i8* %t26, i64 %t25"]
+"t28" [label="  %t28 = load i8* %t27, align 1"]
+"t29" [label="  %t29 = sext i8 %t28 to i32"]
+"t30" [label="  %t30 = icmp eq i32 %t23, %t29"]
+"_9" [label="  br i1 %t30, label %5, label %6"]
+"unk_block_5" -> "t18"[color=red]
+"j" -> "t18"
+"t18" -> "t19"[color=red weight=2]
+"t18" -> "t19"
+"t19" -> "t20"[color=red weight=2]
+"t2" -> "t20"
+"t20" -> "t21"[color=red weight=2]
+"t20" -> "t21"
+"t19" -> "t21"
+"t21" -> "t22"[color=red weight=2]
+"t21" -> "t22"
+"t22" -> "t23"[color=red weight=2]
+"t22" -> "t23"
+"t23" -> "t24"[color=red weight=2]
+"i" -> "t24"
+"t24" -> "t25"[color=red weight=2]
+"t24" -> "t25"
+"t25" -> "t26"[color=red weight=2]
+"t3" -> "t26"
+"t26" -> "t27"[color=red weight=2]
+"t26" -> "t27"
+"t25" -> "t27"
+"t27" -> "t28"[color=red weight=2]
+"t27" -> "t28"
+"t28" -> "t29"[color=red weight=2]
+"t28" -> "t29"
+"t29" -> "t30"[color=red weight=2]
+"t23" -> "t30"
+"t29" -> "t30"
+"t30" -> "_9"[color=red weight=2]
+"t30" -> "_9"
+"_9" -> ""[color=red]
+"_9" -> ""[color=red]
+
+"t31" [label="  %t31 = load i32* %i, align 4"]
+"_10" [label="  store i32 %t31, i32* %t1"]
+"_11" [label="  br label %11"]
+"unk_block_6" -> "t31"[color=red]
+"i" -> "t31"
+"t31" -> "_10"[color=red weight=2]
+"t31" -> "_10"
+"t1" -> "_10"
+"_10" -> "_11"[color=red weight=2]
+"_11" -> ""[color=red]
+
+"t32" [label="  %t32 = load i32* %j, align 4"]
+"t33" [label="  %t33 = add nsw i32 %t32, 1"]
+"_12" [label="  store i32 %t33, i32* %j, align 4"]
+"_13" [label="  br label %7"]
+"unk_block_7" -> "t32"[color=red]
+"j" -> "t32"
+"t32" -> "t33"[color=red weight=2]
+"t32" -> "t33"
+"i32 1" -> "t33"
+"t33" -> "_12"[color=red weight=2]
+"t33" -> "_12"
+"j" -> "_12"
+"_12" -> "_13"[color=red weight=2]
+"_13" -> ""[color=red]
+
+"_14" [label="  br label %3"]
+"unk_block_8" -> "_14"[color=red]
+"_14" -> ""[color=red]
+
+"_15" [label="  br label %9"]
+"unk_block_9" -> "_15"[color=red]
+"_15" -> ""[color=red]
+
+"t34" [label="  %t34 = load i32* %i, align 4"]
+"t35" [label="  %t35 = add nsw i32 %t34, 1"]
+"_16" [label="  store i32 %t35, i32* %i, align 4"]
+"_17" [label="  br label %1"]
+"unk_block_10" -> "t34"[color=red]
+"i" -> "t34"
+"t34" -> "t35"[color=red weight=2]
+"t34" -> "t35"
+"i32 1" -> "t35"
+"t35" -> "_16"[color=red weight=2]
+"t35" -> "_16"
+"i" -> "_16"
+"_16" -> "_17"[color=red weight=2]
+"_17" -> ""[color=red]
+
+"_18" [label="  store i32 -1, i32* %t1"]
+"_19" [label="  br label %11"]
+"unk_block_11" -> "_18"[color=red]
+"i32 -1" -> "_18"
+"t1" -> "_18"
+"_18" -> "_19"[color=red weight=2]
+"_19" -> ""[color=red]
+
+"t36" [label="  %t36 = load i32* %t1"]
+"_20" [label="  ret i32 %t36"]
+"unk_block_12" -> "t36"[color=red]
+"t1" -> "t36"
+"t36" -> "_20"[color=red weight=2]
+"t36" -> "_20"
+
+}

@@ -1,0 +1,77 @@
+digraph G {
+compound=true
+label="Black edges - dataflow, red edges - control flow"
+"t19" [label="  %t19 = alloca i8*, align 8"]
+"n" [label="  %n = alloca i32, align 4"]
+"_1" [label="  store i8* %s, i8** %t19, align 8"]
+"_2" [label="  store i32 0, i32* %n, align 4"]
+"_3" [label="  br label %1"]
+"unk_block_1" -> "t19"[color=red]
+"i32 1" -> "t19"
+"t19" -> "n"[color=red weight=2]
+"i32 1" -> "n"
+"n" -> "_1"[color=red weight=2]
+"s" -> "_1"
+"t19" -> "_1"
+"_1" -> "_2"[color=red weight=2]
+"i32 0" -> "_2"
+"n" -> "_2"
+"_2" -> "_3"[color=red weight=2]
+"_3" -> ""[color=red]
+
+"t20" [label="  %t20 = load i32* %n, align 4"]
+"t21" [label="  %t21 = sext i32 %t20 to i64"]
+"t22" [label="  %t22 = load i8** %t19, align 8"]
+"t23" [label="  %t23 = getelementptr inbounds i8* %t22, i64 %t21"]
+"t24" [label="  %t24 = load i8* %t23, align 1"]
+"t25" [label="  %t25 = sext i8 %t24 to i32"]
+"t26" [label="  %t26 = icmp ne i32 %t25, 0"]
+"_4" [label="  br i1 %t26, label %2, label %4"]
+"unk_block_2" -> "t20"[color=red]
+"n" -> "t20"
+"t20" -> "t21"[color=red weight=2]
+"t20" -> "t21"
+"t21" -> "t22"[color=red weight=2]
+"t19" -> "t22"
+"t22" -> "t23"[color=red weight=2]
+"t22" -> "t23"
+"t21" -> "t23"
+"t23" -> "t24"[color=red weight=2]
+"t23" -> "t24"
+"t24" -> "t25"[color=red weight=2]
+"t24" -> "t25"
+"t25" -> "t26"[color=red weight=2]
+"t25" -> "t26"
+"i32 0" -> "t26"
+"t26" -> "_4"[color=red weight=2]
+"t26" -> "_4"
+"_4" -> ""[color=red]
+"_4" -> ""[color=red]
+
+"_5" [label="  br label %3"]
+"unk_block_3" -> "_5"[color=red]
+"_5" -> ""[color=red]
+
+"t27" [label="  %t27 = load i32* %n, align 4"]
+"t28" [label="  %t28 = add nsw i32 %t27, 1"]
+"_6" [label="  store i32 %t28, i32* %n, align 4"]
+"_7" [label="  br label %1"]
+"unk_block_4" -> "t27"[color=red]
+"n" -> "t27"
+"t27" -> "t28"[color=red weight=2]
+"t27" -> "t28"
+"i32 1" -> "t28"
+"t28" -> "_6"[color=red weight=2]
+"t28" -> "_6"
+"n" -> "_6"
+"_6" -> "_7"[color=red weight=2]
+"_7" -> ""[color=red]
+
+"t29" [label="  %t29 = load i32* %n, align 4"]
+"_8" [label="  ret i32 %t29"]
+"unk_block_5" -> "t29"[color=red]
+"n" -> "t29"
+"t29" -> "_8"[color=red weight=2]
+"t29" -> "_8"
+
+}
