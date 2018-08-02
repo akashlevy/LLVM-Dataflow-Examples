@@ -1,3 +1,15 @@
+# LLVM Dataflow Graph Examples
+
+## Requirements
+- Ubuntu 12.04 (use AWS free tier search AMIs)
+- [llvmpy](https://github.com/llvmpy/llvmpy/) (install from source)
+- clang-3.3 (use apt)
+
+## Instruction Links
+- https://www.ics.usi.ch/images/stories/ICS/slides/llvm-graphs.pdf
+
+## graph-llvm-ir
+
 (Useful) combinations of rendering options:
 
 --control (default):
